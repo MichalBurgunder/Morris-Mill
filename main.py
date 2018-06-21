@@ -54,7 +54,7 @@ class Game:
             1: self.ocTL,
             3: self.ocTR,
             24: self.ocBR,
-            23: self.ocBL,
+            22: self.ocBL,
 
             2: self.omT,
             15: self.omR,
@@ -88,16 +88,36 @@ class Game:
         self.player1 = 'Player 1'
         self.player2 = 'Player 2'
 
-        self.whitePieces = 12
-        self.blackPieces = 12
+        self.whitePieces = 5
+        self.blackPieces = 4
 
         self.turnFlip = False
 
         self.piece = 'youshouldnotseethis'
 
         self.positions = list(range(1,25))
-        print(self.positions)
 
+        self.tripleDictionary = {
+            1: ((1, 2, 3), (1, 10, 22)),
+            2: ((1, 2, 3), (2, 5, 8)),
+            3: ((1, 2, 3), (3, 15, 24)),
+            4: ((4, 5, 6), (4, 11, 19)),
+            5: ((4, 5, 6), (2, 5, 8)),
+            6: ((4, 5, 6), (6, 14, 21)),
+            7: ((7, 8, 9), (7, 12, 16)),
+            8: ((2, 5, 8), (7, 8, 9)),
+            9: ((7, 8, 9), (9, 13, 18)),
+            10: ((10, 11, 12),(1, 10, 22)),
+            11: ((10, 11, 12), (4, 11, 19)),
+            12: ((10, 11, 12), (7, 12, 16)),
+            13: ((13, 14, 15), (9, 13, 18)),
+            14: ((13, 14, 15), (6, 14, 21)),
+            15: ((13, 14, 15), (3, 15, 24)),
+            16: ((16, 17, 18), (7, 12, 16)),
+            17: ((16, 17, 18), (17, 20, 23)),
+            18: ((16, 17, 18), (9, 13, 18)),
+            19:
+        }
 
 
     def placementBeginning(self):
@@ -105,7 +125,7 @@ class Game:
         return
 
     def placementDocumentation(self):
-        self.placementBeginning(self)
+        self.placementBeginning()
         print('1---------------2---------------3')
         print('|               |               |')
         print('|               |               |')
@@ -128,57 +148,75 @@ class Game:
         return
 
     def showBoard(self):
-        print(f"{self.ocTL}---------------{self.omT}---------------{self.ocTR}")
+        print(f"{self.board[1]}---------------{self.board[2]}---------------{self.board[3]}")
         print('|               |               |')
         print('|               |               |')
-        print(f"|    {self.mcTL}----------{self.mmT}----------{self.mcTR}    |")
+        print(f"|    {self.board[4]}----------{self.board[5]}----------{self.board[6]}    |")
         print('|    |          |          |    |')
         print('|    |          |          |    |')
-        print(f"|    |    {self.icTL}-----{self.imT}-----{self.icTR}    |    |")
+        print(f"|    |    {self.board[7]}-----{self.board[8]}-----{self.board[9]}    |    |")
         print('|    |    |           |    |    |')
         print('|    |    |           |    |    |')
-        print(f'{self.omL}----{self.mmL}----{self.imL}           {self.imR}----{self.mmR}----{self.omR}')
+        print(f'{self.board[10]}----{self.board[11]}----{self.board[12]}           {self.board[13]}----{self.board[14]}----{self.board[15]}')
         print('|    |    |           |    |    |')
         print('|    |    |           |    |    |')
-        print(f'|    |    {self.icBL}-----{self.imB}-----{self.icBR}    |    |')
+        print(f'|    |    {self.board[16]}-----{self.board[17]}-----{self.board[18]}    |    |')
         print('|    |          |          |    |')
         print('|    |          |          |    |')
-        print(f'|    {self.mcBL}----------{self.mmB}----------{self.mcBR}    |')
+        print(f'|    {self.board[19]}----------{self.board[20]}----------{self.board[21]}    |')
         print('|               |               |')
         print('|               |               |')
-        print(f'{self.ocBL}---------------{self.omB}---------------{self.ocBR}')
+        print(f'{self.board[22]}---------------{self.board[23]}---------------{self.board[24]}')
         return
 
-    def whosturn(self):
-        if self.whitePieces == self.blackPieces:
+    def switchTurn(self):
+
+        if self.turnFlip == False:
             self.turnFlip = True
             self.piece = 'W'
             self.whosturn = self.player1
+            self.whitePieces -= 1
+            print(f'blacks: {self.blackPieces} whites: {self.whitePieces}')
             return self.whosturn
         else:
             self.turnFlip = False
             self.piece = 'B'
             self.whosturn = self.player2
+            self.blackPieces -= 1
+            print(f'blacks: {self.blackPieces} whites: {self.whitePieces}')
             return self.whosturn
 
-    def takeoutposition(self, position):
+    def takeoutposition(self):
         while True:
             try:
-                self.positions.remove(position)
-                return
+                position = input(f"It is {self.whosturn}'s turn! Place your piece on the board")
+                self.positions.remove(int(position))
+                self.board[int(position)] = self.piece
+                self.showBoard()
+                self.switchTurn()
+                if self.whitePieces == 0 and self.blackPieces == 0:
+                    break
             except:
                 print('Error! You there already is a piece there. try another position')
 
+
     def openingPhase(self):
         while self.whitePieces and self.blackPieces != 0:
-            self.showBoard(self)
-            self.whosTurn()
-            position = input(f"It is {self.whosturn}'s turn! Place your piece on the board")
-            self.takeoutposition(position)
+            self.takeoutposition()
+
+    def checkTriple(self):
+
+
+
+    def play(self):
+        self.placementDocumentation()
+        self.openingPhase()
 
 
 
 gameTime = Game()
+gameTime.play()
+
 
 # gameTime.showBoard()
 # gameTime.placementDocumentation()
