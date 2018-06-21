@@ -179,7 +179,7 @@ class Game:
 
 
 gameTime = Game()
-#
+
 # gameTime.showBoard()
 # gameTime.placementDocumentation()
 
