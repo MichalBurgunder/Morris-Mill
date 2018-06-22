@@ -2,8 +2,7 @@
 class Game:
 
     def __init__(self):
-
-        '''
+        """
         These variables instantiate the different positions on the board via this naming convention:
 
         First letter: outer (o), middle (m), inner (i) refers to which ring the position is located at
@@ -15,7 +14,7 @@ class Game:
             imL ---> inner (ring), middle, Left position
             ocBR ---> outer, corner, Bottom-Right position
 
-        '''
+        """
         # outer ring
         self.ocTL = ' '
         self.ocTR = ' '
@@ -49,7 +48,7 @@ class Game:
         self.imB = ' '
         self.imL = ' '
 
-        '''This ditionary is used for a better user experience, so that they don't need to 
+        '''This dictionary is used for a better user experience, so that they don't need to 
         deal with the strange naming that makes the programming easier. '''
         self.board = {
             1: self.ocTL,
@@ -86,14 +85,14 @@ class Game:
         self.player1 = 'Player 1'
         self.player2 = 'Player 2'
 
-        self.whitePieces = 5
-        self.blackPieces = 4
+        self.whitePieces = 9
+        self.blackPieces = 8
 
         self.turnFlip = False
 
-        self.piece = 'youshouldnotseethis'
+        self.piece = ''
 
-        self.positions = list(range(1,25))
+        self.positions = list(range(1, 25))
 
         self.pieces = ['W', 'B']
 
@@ -157,72 +156,49 @@ class Game:
             24: [15, 23]
         }
 
-
-
-    def placementBeginning(self):
-        print('Type in the number where you want to place the piece at');
+    def showboard(self):
+        print(f"{self.board[1]}---------------{self.board[2]}---------------{self.board[3]}  1---------------2-------"
+              f"--------3")
+        print('|               |               |  |               |               |')
+        print('|               |               |  |               |               |')
+        print(f"|    {self.board[4]}----------{self.board[5]}----------{self.board[6]}    |  |    4----------5--------"
+              f"--6    |")
+        print('|    |          |          |    |  |    |          |          |    |')
+        print('|    |          |          |    |  |    |          |          |    |')
+        print(f"|    |    {self.board[7]}-----{self.board[8]}-----{self.board[9]}    |    |  |    |    7-----8-----9   "
+              f" |    |")
+        print('|    |    |           |    |    |  |    |    |           |    |    |')
+        print('|    |    |           |    |    |  |    |    |           |    |    |')
+        print(f'{self.board[10]}----{self.board[11]}----{self.board[12]}           {self.board[13]}----{self.board[14]}'
+              f'----{self.board[15]}  10---11---12          13---14---15')
+        print('|    |    |           |    |    |  |    |    |           |    |    |')
+        print('|    |    |           |    |    |  |    |    |           |    |    |')
+        print(f'|    |    {self.board[16]}-----{self.board[17]}-----{self.board[18]}    |    |  |    |    16----17---'
+              f'-18   |    |')
+        print('|    |          |          |    |  |    |          |          |    |')
+        print('|    |          |          |    |  |    |          |          |    |')
+        print(f'|    {self.board[19]}----------{self.board[20]}----------{self.board[21]}    |  |    19---------20----'
+              f'-----21   |')
+        print('|               |               |  |               |               |')
+        print('|               |               |  |               |               |')
+        print(f'{self.board[22]}---------------{self.board[23]}---------------{self.board[24]}  22--------------23---'
+              f'-----------24')
         return
 
-    # def placementDocumentation(self):
-    #     self.placementBeginning()
-    #     print('1---------------2---------------3')
-    #     print('|               |               |')
-    #     print('|               |               |')
-    #     print('|    4----------5----------6    |')
-    #     print('|    |          |          |    |')
-    #     print('|    |          |          |    |')
-    #     print('|    |    7-----8-----9    |    |')
-    #     print('|    |    |           |    |    |')
-    #     print('|    |    |           |    |    |')
-    #     print('10---11---12          13---14---15')
-    #     print('|    |    |           |    |    |')
-    #     print('|    |    |           |    |    |')
-    #     print('|    |    16----17----18   |    |')
-    #     print('|    |          |          |    |')
-    #     print('|    |          |          |    |')
-    #     print('|    19---------20---------21   |')
-    #     print('|               |               |')
-    #     print('|               |               |')
-    #     print('22--------------23--------------24')
-    #     return
+    def switchturn(self):
 
-    def showBoard(self):
-        print(f"{self.board[1]}---------------{self.board[2]}---------------{self.board[3]}  1---------------2---------------3")
-        print('|               |               |  |               |               |')
-        print('|               |               |  |               |               |')
-        print(f"|    {self.board[4]}----------{self.board[5]}----------{self.board[6]}    |  |    4----------5----------6    |")
-        print('|    |          |          |    |  |    |          |          |    |')
-        print('|    |          |          |    |  |    |          |          |    |')
-        print(f"|    |    {self.board[7]}-----{self.board[8]}-----{self.board[9]}    |    |  |    |    7-----8-----9    |    |")
-        print('|    |    |           |    |    |  |    |    |           |    |    |')
-        print('|    |    |           |    |    |  |    |    |           |    |    |')
-        print(f'{self.board[10]}----{self.board[11]}----{self.board[12]}           {self.board[13]}----{self.board[14]}----{self.board[15]}  10---11---12          13---14---15')
-        print('|    |    |           |    |    |  |    |    |           |    |    |')
-        print('|    |    |           |    |    |  |    |    |           |    |    |')
-        print(f'|    |    {self.board[16]}-----{self.board[17]}-----{self.board[18]}    |    |  |    |    16----17----18   |    |')
-        print('|    |          |          |    |  |    |          |          |    |')
-        print('|    |          |          |    |  |    |          |          |    |')
-        print(f'|    {self.board[19]}----------{self.board[20]}----------{self.board[21]}    |  |    19---------20---------21   |')
-        print('|               |               |  |               |               |')
-        print('|               |               |  |               |               |')
-        print(f'{self.board[22]}---------------{self.board[23]}---------------{self.board[24]}  22--------------23--------------24')
-        return
-
-    def switchTurn(self):
-
-        if self.turnFlip == False:
+        if not self.turnFlip:
             self.turnFlip = True
             self.piece = 'W'
             self.whosturn = self.player1
-            if self.playingNormal == False:
+            if not self.playingNormal:
                 self.whitePieces -= 1
-            print(f'blacks: {self.blackPieces} whites: {self.whitePieces}')
             return self.whosturn
         else:
             self.turnFlip = False
             self.piece = 'B'
             self.whosturn = self.player2
-            if self.playingNormal == False:
+            if not self.playingNormal:
                 self.blackPieces -= 1
             print(f'blacks: {self.blackPieces} whites: {self.whitePieces}')
             return self.whosturn
@@ -232,26 +208,25 @@ class Game:
             print(f"It is {self.whosturn}'s turn! Place your piece on the board")
             while True:
                 try:
-                   position = input()
-                   self.positions.remove(int(position))
-                   break
-                except:
-                   print('Error! You there already is a piece there. try another position')
+                    position = input()
+                    self.positions.remove(int(position))
+                    break
+                except ():
+                    print('Error! You there already is a piece there. try another position')
             self.board[int(position)] = self.piece
-            self.checkTriple(position)
-            self.showBoard()
-            self.switchTurn()
+            self.checktriple(position)
+            self.showboard()
+            self.switchturn()
             if self.whitePieces == 0 and self.blackPieces == 0:
                 self.playingNormal = True
                 break
 
-
-    def openingPhase(self):
-        self.switchTurn()
+    def openingphase(self):
+        self.switchturn()
         while self.whitePieces and self.blackPieces != 0:
             self.takeoutposition()
 
-    def killPiece(self):
+    def killpiece(self):
         print("You've made a mill! Good job! Choose one of the opponents pieces to be taken off the board.")
         while True:
             piece = int(input())
@@ -259,9 +234,11 @@ class Game:
                 print("You can't pick your own piece! Choose one of your opponents pieces.")
             elif self.board[piece] == ' ':
                 print("You can't pick an empty spot! Choose a spot with your opponents piece.")
-            elif self.board[self.tripleDictionary[piece][0][0]] == self.board[self.tripleDictionary[piece][0][1]] and self.board[self.tripleDictionary[piece][0][1]] == self.board[self.tripleDictionary[piece][0][2]]:
+            elif self.board[self.tripleDictionary[piece][0][0]] == self.board[self.tripleDictionary[piece][0][1]] and \
+                    self.board[self.tripleDictionary[piece][0][1]] == self.board[self.tripleDictionary[piece][0][2]]:
                 print("(horizontal) You can't pick an opponents piece that is in a mill! Choose another piece")
-            elif self.board[self.tripleDictionary[piece][1][0]] == self.board[self.tripleDictionary[piece][1][1]] and self.board[self.tripleDictionary[piece][1][1]] == self.board[self.tripleDictionary[piece][1][2]]:
+            elif self.board[self.tripleDictionary[piece][1][0]] == self.board[self.tripleDictionary[piece][1][1]] and \
+                    self.board[self.tripleDictionary[piece][1][1]] == self.board[self.tripleDictionary[piece][1][2]]:
                 print("(vertical) You can't pick an opponents piece that is in a mill! Choose another piece")
             else:
                 if self.board[piece] == 'W':
@@ -273,17 +250,17 @@ class Game:
                 break
         return
 
-    def checkTriple(self, position):
-        for tuple in self.tripleDictionary[int(position)]:
-            if self.board[tuple[0]] == self.board[tuple[1]] and self.board[tuple[1]] == self.board[tuple[2]]:
-                self.killPiece()
+    def checktriple(self, position):
+        for postuple in self.tripleDictionary[int(position)]:
+            if self.board[postuple[0]] == self.board[postuple[1]] and self.board[postuple[1]] == \
+                    self.board[postuple[2]]:
+                self.killpiece()
                 return
         return
 
-
     def checkstatus(self):
-        wcounter = 0
-        bcounter = 0
+        wcounter = 1
+        bcounter = 1
         for attr, value in self.board.items():
             if value == 'W':
                 wcounter += 1
@@ -297,9 +274,8 @@ class Game:
         return False
 
     def move(self):
-        # print('wcounter: ' + str(self.wcounter) + ' bcounter: ' + str(self.bcounter))
         while True:
-            piece = int(input("Pick a piece you want to move.\n"))
+            piece = int(input(f"It is {self.whosturn}'s turn. Pick a piece you want to move.\n"))
             if self.board[piece] == self.piece:
                 self.board[piece] = ' '
                 break
@@ -309,47 +285,47 @@ class Game:
             if self.board[position] == ' ':
                 if self.checkstatus():
                     self.board[position] = self.piece
-                    self.checkTriple(position)
+                    self.checktriple(position)
                     break
                 elif piece in self.movement[position]:
                     self.board[position] = self.piece
-                    self.checkTriple(position)
+                    self.checktriple(position)
                     break
             print("That's an invalid position! Try again.")
-        self.showBoard()
+        self.showboard()
         self.checkstatus()
 
-    def playingPhase(self):
-        print(f"Welcome to the normal playing phase! It is {self.whosturn}'s turn. Move your pieces along the lines to try and get more mills. Good luck!")
+    def checkwin(self):
+        wcounter = 0
+        bcounter = 0
+        for attr, value in self.board.items():
+            if value == 'W':
+                wcounter += 1
+            elif value == 'B':
+                bcounter += 1
+        if wcounter < 3 or bcounter < 3:
+            return True
+        else:
+            return False
+
+    def playingphase(self):
+        print(f"Welcome to the normal playing phase! It is {self.whosturn}'s turn. Move your pieces along the lines "
+              f"to try and get more mills. Good luck!")
         while True:
             self.move()
-            self.switchTurn()
+            if self.checkwin():
+                break
+            self.switchturn()
+
+    def finalremarks(self):
+        print(f"Congratulations {self.whosturn}! You have won!")
 
     def play(self):
-        self.showBoard()
-        self.openingPhase()
-        self.playingPhase()
-
+        self.showboard()
+        self.openingphase()
+        self.playingphase()
+        self.finalremarks()
 
 
 gameTime = Game()
 gameTime.play()
-
-
-# gameTime.showBoard()
-# gameTime.placementDocumentation()
-#
-# t = [(1, 2)]
-#
-# for n in t:
-#     print(n[0])
-
-# print(gameTime.tripleDictionary[1])
-# for tuple in gameTime.tripleDictionary[1]:
-#     print(tuple[2])
-
-obj = {
-    1: 'hi',
-    2: 'hello',
-    3: 'hi'
-}
