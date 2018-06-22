@@ -97,8 +97,10 @@ class Game:
 
         self.pieces = ['W', 'B']
 
-
         self.playingNormal = False
+
+        self.wcounter = 1
+        self.bcounter = 1
 
         # This dictionary allows for efficient checking of for three in a row
         self.tripleDictionary = {
@@ -280,13 +282,22 @@ class Game:
 
 
     def checkstatus(self):
-        if self.piece == 'W' and self.whitePieces == 0:
+        wcounter = 0
+        bcounter = 0
+        for attr, value in self.board.items():
+            if value == 'W':
+                wcounter += 1
+            elif value == 'B':
+                bcounter += 1
+        print('wcounter: ' + str(wcounter) + ' bcounter: ' + str(bcounter))
+        if self.piece == 'W' and wcounter <= 3:
             return True
-        elif self.piece == 'B' and self.blackPieces == 0:
+        elif self.piece == 'B' and bcounter <= 3:
             return True
         return False
 
     def move(self):
+        # print('wcounter: ' + str(self.wcounter) + ' bcounter: ' + str(self.bcounter))
         while True:
             piece = int(input("Pick a piece you want to move.\n"))
             if self.board[piece] == self.piece:
@@ -296,11 +307,11 @@ class Game:
         while True:
             position = int(input("Pick a spot where you would like to place it"))
             if self.board[position] == ' ':
-                if self.checkstatus() == True:
+                if self.checkstatus():
                     self.board[position] = self.piece
                     self.checkTriple(position)
                     break
-                elif piece in self.movement[position] :
+                elif piece in self.movement[position]:
                     self.board[position] = self.piece
                     self.checkTriple(position)
                     break
@@ -337,3 +348,8 @@ gameTime.play()
 # for tuple in gameTime.tripleDictionary[1]:
 #     print(tuple[2])
 
+obj = {
+    1: 'hi',
+    2: 'hello',
+    3: 'hi'
+}
